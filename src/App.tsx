@@ -1,24 +1,19 @@
+import { useMachine } from '@xstate/react';
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { myMachine } from './machines/myFirstMachine';
 
 function App() {
+  const [state, send] = useMachine(myMachine)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {JSON.stringify(state.value)}
+      <button onClick={() => {
+        send("MOUSEOVER")
+      }}>Mouse over</button>
+      <button onClick={() => {
+        send("MOUSEOUT")
+      }}>Mouse out</button>
     </div>
   );
 }
